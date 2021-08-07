@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flask-File Drag Drop System</title>
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 3px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  background-color: #ccfaff;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #80ccff;
+}
+</style>
+</head>
+<body>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Enter keyword here..." title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:60%; font-family: Lucida Console;">PDF</th>
+    <th style="width:40%; font-family: Lucida Console;">Action</th>
+  </tr>
+  {% for pdf in pdfs %}
+    <tr>
+        <td>{{pdf['Filename']}}</td>
+        <td><a class="label label-primary" href=/uploads/{{ pdf['Filename']  }} target="_blank"  style="margin-right: 5px;">Download pdf </a>
+        </td>
+    </tr>
+  {% endfor %}
+</table>
+
+
+<script>
+function myFunction() {
+
+  var input, filter, table, tr, td, i, txtValue;
+  var pdfs = JSON.parse('{{ pdfs | tojson | safe}}');
+
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  console.log("tr lenght: " + tr.length)
+  for (i = 1; i < tr.length; i++) {
+    pdf_ner = pdfs[i-1]['Ner']
+    console.log(pdf_ner)
+    console.log("input" + input.value)
+    if(input.value != "")
+    {
+        if (pdf_ner.includes(input.value)) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    } else {
+        tr[i].style.display = "";
+    }
+    
+        
+
+
+  }
+}
+</script>
+
+</body>
+</html>

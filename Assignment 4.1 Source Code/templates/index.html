@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {{ dropzone.load_css() }}
+  {{ dropzone.style('border: 2px dashed #0087F7; margin: 10; min-height: 400px;') }}
+
+  <style>
+.button {
+  display: inline;
+  border-radius: 4px;
+  background-color: #053afa;
+  border: none;
+  color: #adfff1;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  width: 120px;
+  transition: all 0.5s;
+  cursor: pointer;
+  float: right;
+  margin: 5px;
+  
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
+</head>
+<body>
+  <CENTER><marquee behavior="scroll" direction="left" scrollamount="30"><h1 style="font-family: Lucida Console; color: Blue">UPLOAD A PDF FILE</h1></marquee></CENTER>
+  {{ dropzone.create(action='upload') }}
+  {{ dropzone.load_js() }}
+  {{ dropzone.config() }}
+
+<button class="button" style="vertical-align:middle" ><span>
+<a style="color: white;  text-decoration: none; font-family: Lucida Console;" href="{{ url_for('search') }}">EXTRACT</a></span></button>
+
+</body>
+</html>
