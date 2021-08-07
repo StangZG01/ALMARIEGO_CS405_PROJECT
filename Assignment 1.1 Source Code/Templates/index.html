@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>autocomplete</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body style="margin-top: 14px;">
+    <h1 style="margin-left: 4px;">Auto-Complete App</h1><label class="form-label" style="margin-left: 4px;">Type your sentence:&nbsp;</label>
+
+    <div>
+     <form id="form" method="POST" action="/predict">
+<div>
+    <textarea name="sentence" class="form-control" style="margin-bottom: 20px;" rows="5">{{ check_str }}</textarea>
+</div>
+        <button class="btn btn-success text-uppercase" type="submit" style="height: 50.6023px;width: 600.045px;margin-left: 4px;">Predict</button>
+    </form>
+    </div>
+    
+    <div>
+        <label class="form-label" style="margin-top: 11px;margin-left: 4px;"><strong>POSSIBLE NEXT WORDS:</strong></label>
+    </div>
+    <div></div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Word</th>
+                    <th>Frequency Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                 {% for res in result %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td style="border-width: 1px;border-color: rgb(0,0,0);">{{ res[0] }}</td>
+                    <td style="border-width: 1px;border-color: rgb(0,0,0);">{{ res[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
